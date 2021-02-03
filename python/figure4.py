@@ -4,18 +4,22 @@ import plotly.io as pio
 
 # Load data
 df = pd.read_csv(
-    "overview_inflow.csv", encoding='CP949')
+    "overview_inflow.csv")
 
 # Create figure
 fig = go.Figure()
 
-fig.add_trace(go.Scatter(x=list(df.Hour), y=list(df.Total), name="사용률1"))
-fig.add_trace(go.Scatter(x=list(df.Hour), y=list(df.Book), name="사용률2"))
+fig.add_trace(go.Bar(x=list(df.Hour), y=list(df.Total), name="유입 인원"))
+fig.add_trace(go.Bar(x=list(df.Hour), y=list(df.Book), name="상담예약 인원"))
 
 # Set title
 fig.update_layout(
-    title_text="시간대별 사용률"
+    title_text="유입시간"
 )
+updatemenus = list([
+    dict(
+        active=0,
+         showactive = True)])
 
 # Add range slider
 fig.update_layout(
@@ -42,7 +46,8 @@ fig.update_layout(
                      label="전체 기간")
             ])
         )
-    )
+    ),
+    updatemenus=updatemenus
 )
 
 fig.show()

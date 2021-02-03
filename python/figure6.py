@@ -4,15 +4,18 @@ import plotly.io as pio
 
 # Load data
 df = pd.read_csv(
-    "usage_time.csv", encoding='CP949')
+    "connection.csv", encoding='CP949')
 
 # Create figure
 fig = go.Figure()
 
-fig.add_trace(go.Bar(x=list(df.Time), y=list(df.People), name="사용자수"))
+fig.add_trace(go.Bar(x=list(df.Type), y=list(df.Percentage), name="사용률1"))
 
 # Set title
-fig.update_layout(title_text="총 상담 시간")
+fig.update_layout(title_text="방문 상담 연결률")
+
+fig.layout.yaxis.tickformat = ',.0%'
+fig.layout.yaxis.range = [0 ,1]
 
 fig.show()
 pio.write_html(fig, file='figure6.html', auto_open=True)
